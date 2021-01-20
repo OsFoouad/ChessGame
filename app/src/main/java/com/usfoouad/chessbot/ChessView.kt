@@ -23,7 +23,7 @@ class ChessView(context: Context?, atts: AttributeSet?) : View(context, atts) {
             R.drawable.black_rook,
             R.drawable.white_pawn,
             R.drawable.black_pawn,
-    ) //    // pieces in the Drawable folder
+    )  // pieces in the Drawable folder
     private var scalar = .9f // factor to edit the board size
     private var side = 130f // every quare side
     private var originX = 20f // away from left
@@ -52,6 +52,17 @@ class ChessView(context: Context?, atts: AttributeSet?) : View(context, atts) {
 
 
     }
+
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        val tiny = min(widthMeasureSpec , heightMeasureSpec)
+        setMeasuredDimension(tiny , tiny)
+
+    }
+
 
     //chessBoard drawing fun
     private fun drawChessBoard(canvas: Canvas) {

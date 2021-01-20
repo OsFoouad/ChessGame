@@ -1,15 +1,16 @@
 package com.usfoouad.chessbot
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 
 const val ms = "MainActivity"
 
 class MainActivity : AppCompatActivity(), ChessRepresenter {
 
 
-    var chessModel = ChessModel()
+    private var chessModel = ChessModel()
+    private lateinit var chessView: ChessView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +18,19 @@ class MainActivity : AppCompatActivity(), ChessRepresenter {
 
         //Log.d(ms, chessModel.toString())
 
-        findViewById<ChessView>(R.id.chess_view).chessRepresenter = this
+        chessView = findViewById<ChessView>(R.id.chess_view)
+
+        chessView.chessRepresenter = this
+
+
+        // assign the reset button function
+        val reset = findViewById<Button>(R.id.reset_btn)
+        reset.setOnClickListener {
+            chessModel.resetBoard()
+            chessView.invalidate()
+        }
+
+
     }
 
     override fun pieceAt(col: Int, row: Int): ChessPiece? {
@@ -26,7 +39,7 @@ class MainActivity : AppCompatActivity(), ChessRepresenter {
 
     override fun movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         chessModel.movePiece(fromCol, fromRow, toCol, toRow)
-        findViewById<ChessView>(R.id.chess_view).invalidate()
+        chessView.invalidate()
 
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ChessBot</string>
+    <string name="reset_btn">Reset</string>
 </resources>
